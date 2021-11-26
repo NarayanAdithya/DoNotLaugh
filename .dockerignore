@@ -4,8 +4,13 @@
 */*/pytest_cache
 */*/__pycache__
 */analysis.ipynb
+.pytest_cache
+.Procfile
 tests/
 env
 tests
 Dockerfile
 docker-compose.yml
+Procfile
+analysis.ipynb
+.gitignore

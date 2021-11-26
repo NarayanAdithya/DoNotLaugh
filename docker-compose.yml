@@ -4,8 +4,18 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      MONGO_URI: 'mongodb://adithya:narayan@db:27017/laughy?authSource=admin'
     ports:
-      - 8000:8000
+      - 5000:8000
     volumes:
       - .:/app
 
+  db:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: 'adithya'
+      MONGO_INITDB_ROOT_PASSWORD: 'narayan'
+    ports:
+      - 8006:27017
