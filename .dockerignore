@@ -1,0 +1,11 @@
+*/.git
+*/.github
+*/.pytest_cache
+*/*/pytest_cache
+*/*/__pycache__
+*/analysis.ipynb
+tests/
+env
+tests
+Dockerfile
+docker-compose.yml
