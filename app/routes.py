@@ -9,7 +9,7 @@ def get_google_provider_cfg():
     return requests.get(app.config.get('GOOGLE_DISCOVERY_URL')).json()
 
 @app.route('/login')
-def home_():
+def google_login():
     google_provider_cfg = get_google_provider_cfg()
     authorization_endpoint = google_provider_cfg["authorization_endpoint"]
     request_uri = client.prepare_request_uri(
@@ -45,7 +45,16 @@ def callback():
     users_email = userinfo_response.json()["email"]
     picture = userinfo_response.json()["picture"]
     users_name = userinfo_response.json()["given_name"]
+    if not userinfo_response.json()['email_verified']:
+        return redirect(url_for('home'))
     print(users_email,picture,users_name)
+    u=User()
+    u.username = users_email.split('@')[0]
+    u.userID = uuid.uuid4()
+    u.status = "perm"
+    u.save()
+    return redirect(url_for('game',userID=u.userID))
+
 
 
 
@@ -55,13 +64,14 @@ def home():
         username=request.form['username']
         if(username==''):
             return render_template('signinnew.html',message="Please Enter a Valid Username")
-        elif User.objects(username=username) is not None:
+        print(User.objects(username=username))
+        if len(User.objects(username=username))!=0:
             return render_template('signinnew.html',message="Player Already Exists")
         u=User()
         u.userID=uuid.uuid4()
         u.username=username
         u.save()
-        return redirect(url_for('end',userID=u.userID))
+        return redirect(url_for('game',userID=u.userID))
     return render_template('signinnew.html')
 
 
@@ -71,26 +81,39 @@ def game(userID):
     links=["https://www.youtube.com/embed/o28RANhwb0s","https://www.youtube.com/embed/IxG3Cv5qK00","https://www.youtube.com/embed/EtH9Yllzjcc"]
     a=1
     u=User.objects.get(userID=userID)
+    print(u)
     game=Game()
     game.userID=u.userID
     game.gameID=uuid.uuid4()
     u.games.append(game)
     u.save()
-    return render_template('index.html',url=links[a],game=game.gameID)
+    return render_template('index.html',url=links[a],game=game,user=u)
 
 
 @app.route('/save_details',methods=['POST'])
 def save_details():
     body=request.get_json()
     print(body['points'])
+    print(body['game'])
+    print(body['user'])
+    u=User.objects.get(userID=body['user'])
+    last_game=u.games[-1]
+    print(last_game)
+    last_game.game_score=body['points']
+    u.save()
     return jsonify({'message':'Success'})
 
-
-@app.route('/end')
-def end_game():
-    print("SERVER END SAVING DATA")
-    return "Saved Successfully"
-
+@app.route('/end/<gameID>/<userID>')
+def end(gameID,userID):
+    u=User.objects.get(userID=userID)
+    if u.status == 'temp':
+        score = u.games[-1].game_score
+        username = u.username
+        u.delete()
+    else:
+        score = u.games[-1].game_score
+        username = u.username
+    return render_template('end_game.html',username=username,score=score)
 
 
 

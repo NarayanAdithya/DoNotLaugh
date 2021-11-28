@@ -1,0 +1,8 @@
+{% extends 'template.html' %}
+
+{% block body %}
+<body class="leading-normal tracking-normal text-indigo-400 m-6 bg-cover bg-fixed content-center" background="{{url_for('static',filename='images/header.png')}}">
+    <h1>Hey, {{username}}</h1>
+    <h4>You Scored {{score}}</h4>
+</body>
+{% endblock %}

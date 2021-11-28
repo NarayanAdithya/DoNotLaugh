@@ -15,4 +15,5 @@ class User(db.Document):
     username=db.StringField(required=True)
     games=db.ListField(db.EmbeddedDocumentField(Game),required=False,default=[])
     created=db.DateTimeField(required=False,default=datetime.datetime.utcnow)
+    status=db.StringField(required=True, default = "temp")
 

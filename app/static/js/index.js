@@ -52,13 +52,13 @@ video.addEventListener('play', () => {
 
 });
 
-function send_data(){
+function send_data(userID,gameID){
   $.ajax({
     type: 'POST',
     url: '/save_details',
-    data: JSON.stringify({'points':points}), // or JSON.stringify ({name: 'jonas'}),
+    data: JSON.stringify({'points':points,'game':gameID,'user':userID}), // or JSON.stringify ({name: 'jonas'}),
     success: function(data) { 
-        window.location = 'http://127.0.0.1:8000/end'
+        window.location = 'http://127.0.0.1:8000/end/'+gameID+'/'+userID
   
     },
     contentType: "application/json",
