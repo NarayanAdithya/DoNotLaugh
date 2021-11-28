@@ -1,14 +1,16 @@
 from flask import Flask
 from flask_socketio import SocketIO
-import config
 from flask_mongoengine import MongoEngine
-
+from oauthlib.oauth2 import WebApplicationClient
+import config
+import os
 
 app=Flask(__name__)
-app.config.from_object(config)
-app.config["MONGODB_SETTINGS"] = {'DB': "donotlaugh", "host":'mongodb://adithya:narayan@localhost:8006/donotlaugh?authSource=admin'}
+app.config.from_object(config.Config)
+os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 db=MongoEngine()
 db.init_app(app)
 socketio=SocketIO()
 socketio.init_app(app,cors_allowed_origins="*")
-from app import routes,events
+client = WebApplicationClient(app.config.get('GOOGLE_CLIENT_ID'))
+from app import routes

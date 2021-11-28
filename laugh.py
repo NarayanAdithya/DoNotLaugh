@@ -1,4 +1,6 @@
-from app import socketio,app
+from dotenv import load_dotenv
+load_dotenv('.env')
+from app import app
 
 
-socketio.run(app,debug=True,host='0.0.0.0',port=8000)
+app.run(port=8000)

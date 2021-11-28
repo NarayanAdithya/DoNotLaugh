@@ -4,11 +4,7 @@ var points=10*RATIO;
 
 $(document).ready(function() {
 
-  
-var socket = io.connect('http://127.0.0.1:8000/');
-socket.on( 'connect', function() {
-  console.log("SOCKET CONNECTED")
-})
+
 
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 Promise.all([
