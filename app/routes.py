@@ -1,4 +1,4 @@
-from flask import render_template,request,redirect,url_for
+from flask import render_template,request,redirect,url_for,jsonify
 import random
 import pickle
 import sys
@@ -12,13 +12,13 @@ def sign_in():
     if request.method=='POST':
         username=request.form['username']
         if(username==''):
-            return render_template('signin.html',message="Please Enter a Valid Username")
+            return render_template('signinnew.html',message="Please Enter a Valid Username")
         u=User()
         u.userID=uuid.uuid4()
         u.username=username
         u.save()
         return redirect(url_for('end',userID=u.userID))
-    return render_template('signin.html')
+    return render_template('signinnew.html')
 
 
 @app.route('/home/<userID>')
@@ -33,6 +33,13 @@ def end(userID):
     u.games.append(game)
     u.save()
     return render_template('index.html',url=links[a],game=game.gameID)
+
+
+@app.route('/save_details',methods=['POST'])
+def save_details():
+    body=request.get_json()
+    print(body['points'])
+    return jsonify({'message':'Success'})
 
 
 @app.route('/end')

@@ -9,5 +9,5 @@ def test_connect():
 
 @socketio.on('my event')
 def handle_my_custom_event(json, methods=['GET', 'POST']):
-    print("GAME ID {}".format(json['game']))
+    print("GAME Emote {}".format(json['data']))
     data.append(json)

@@ -4,9 +4,11 @@
 */*/pytest_cache
 */*/__pycache__
 */analysis.ipynb
+.git
+.github
 .pytest_cache
 .Procfile
-tests/
+tests
 env
 tests
 Dockerfile
@@ -14,3 +16,4 @@ docker-compose.yml
 Procfile
 analysis.ipynb
 .gitignore
+*/env

@@ -1,24 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-  <title>Face Detection</title>
-  <link rel="stylesheet" href="{{ url_for('static',filename='styles/style.css') }}">
-</head>
-
-<body>
-    <video id="video" width="720" height="560" autoplay muted></video>
+{% extends 'template.html' %}
+{% block body %}
+<body  class="leading-normal tracking-normal text-indigo-400 m-6 bg-cover bg-fixed content-center" background="{{url_for('static',filename='images/header.png')}}">
+  <div class="justify-center">
+    <video class="" id="video" width="720" height="560" autoplay muted></video>
+    <form action="">
+      <div class="flex items-center justify-between pt-4">
+        <button
+          class="bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+          type="button" onclick="send_data()">
+          End Session
+        </button>
+      </div>
+    </form>
+  </div>  
   
- 
-
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.0/socket.io.js"></script>
 <script type="text/javascript" src="{{ url_for('static', filename = 'js/face-api.min.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename = 'js/index.js') }}"></script>
 
-</html>
+{%endblock%}
