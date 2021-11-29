@@ -17,7 +17,7 @@ jobs:
         with:
           python-version: "3.8"
       - name: flake8 Lint
-        uses: py-actions/flake8@v1
+      - uses: py-actions/flake8@v1
         with:
           ignore: "E402","F841","F401","E302","E305"
           max-line-length: "200"
