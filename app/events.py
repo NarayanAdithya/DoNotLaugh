@@ -2,7 +2,6 @@ from app.routes import data
 from app import socketio
 
 
-#Events
 @socketio.on('connect')
 def test_connect():
     print("SOCKET CONNECTED")
