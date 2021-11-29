@@ -3,6 +3,7 @@ import os
 
 class Config():
     DEBUG = True
+    HOST = os.environ.get('HOST', '127.0.0.1')
     APP_SETTINGS = "DevelopmentConfig"
     MONGODB_SETTINGS = {
         'DB': "donotlaugh",

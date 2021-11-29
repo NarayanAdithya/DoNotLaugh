@@ -6,6 +6,7 @@ services:
       dockerfile: Dockerfile
     environment:
       MONGO_URI: 'mongodb://adithya:narayan@db:27017/laughy?authSource=admin'
+      HOST: '0.0.0.0'
     ports:
       - 8000:8000
     volumes:
