@@ -1,3 +1,4 @@
+from enum import unique
 from mongoengine.fields import EmbeddedDocumentField,ReferenceField
 import datetime
 import json
@@ -12,7 +13,7 @@ class Game(db.EmbeddedDocument):
 
 class User(db.Document):
     userID=db.UUIDField(required=True,binary=False)
-    username=db.StringField(required=True)
+    username=db.StringField(required=True,unique=True)
     games=db.ListField(db.EmbeddedDocumentField(Game),required=False,default=[])
     created=db.DateTimeField(required=False,default=datetime.datetime.utcnow)
     status=db.StringField(required=True, default = "temp")

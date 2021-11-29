@@ -2,7 +2,15 @@
 {% block body %}
 <body  class="leading-normal tracking-normal text-indigo-400 m-6 bg-cover bg-fixed content-center" background="{{url_for('static',filename='images/header.png')}}">
   <div class="justify-center">
+    <div style="float:left">
     <video class="" id="video" width="720" height="560" autoplay muted></video>
+    </div>
+    <div style="float: right;">
+      <iframe width="420" height="315"
+src="{{url}}">
+</iframe>
+    </div>
+    
     <form action="">
       <div class="flex items-center justify-between pt-4">
         <button
@@ -12,6 +20,8 @@
         </button>
       </div>
     </form>
+    <h2 style="color: red;" id="start_stop_message">Getting Things Ready....(Don't start the video)</h2>
+    <h2 style="color:salmon" id="score_maintainer"></h2>
   </div>  
   
 </body>

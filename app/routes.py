@@ -47,6 +47,9 @@ def callback():
     users_name = userinfo_response.json()["given_name"]
     if not userinfo_response.json()['email_verified']:
         return redirect(url_for('home'))
+    if len(User.objects(username=users_email.split('@')[0]))!=0:
+        u = User.objects.get(username = users_email.split('@')[0])
+        return redirect(url_for('game',userID=u.userID))
     print(users_email,picture,users_name)
     u=User()
     u.username = users_email.split('@')[0]
@@ -78,8 +81,8 @@ def home():
 @app.route('/home/<userID>')
 def game(userID):
     print("SERVER STARTED")
-    links=["https://www.youtube.com/embed/o28RANhwb0s","https://www.youtube.com/embed/IxG3Cv5qK00","https://www.youtube.com/embed/EtH9Yllzjcc"]
-    a=1
+    links=["https://www.youtube.com/embed/o28RANhwb0s?controls=0&autoplay=1","https://www.youtube.com/embed/IxG3Cv5qK00","https://www.youtube.com/embed/EtH9Yllzjcc"]
+    a=0
     u=User.objects.get(userID=userID)
     print(u)
     game=Game()

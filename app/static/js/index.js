@@ -1,6 +1,7 @@
 const video = document.getElementById('video');
-const RATIO = 100000
+const RATIO = 100000;
 var points=10*RATIO;
+var loading = 1;
 
 $(document).ready(function() {
 
@@ -43,6 +44,24 @@ video.addEventListener('play', () => {
     console.log("Max Key = ",max_key)
     if (max_key ==='happy'){
       points = points - 0.05*RATIO
+      $('#score_maintainer').html('SCORE='+points)
+      if(points>900000){
+        $('#score_maintainer').css("color","green");
+      }
+      else if(points>500000){
+        $('#score_maintainer').css("color","orange");
+      }
+      else{
+        $('#score_maintainer').css("color","red");
+      }
+
+    }
+    if(loading===1)
+    {
+      $('#start_stop_message').html('You can start the Video now');
+      $('#start_stop_message').css("color","green");
+      $('#score_maintainer').html('SCORE='+points)
+      loading=0
     }
     console.log(detections[0]["expressions"]);
   }, 100)
